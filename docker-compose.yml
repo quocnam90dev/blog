@@ -1,0 +1,18 @@
+version: "3.8"
+# [Doc] https://danielabaron.me/blog/rails-postgres-docker/#initialization
+
+services:
+  database:
+    image: postgres:14
+    volumes:
+      - db_pg_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      # Map to something other than default 5432 on host in case Postgres is also running natively on host.
+      - "5434:5432"
+    environment:
+      # Sets the superuser password for PostgreSQL
+      POSTGRES_PASSWORD: shhhhItsASecret
+
+volumes:
+  db_pg_data:
