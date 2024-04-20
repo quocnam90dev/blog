@@ -9,11 +9,11 @@ default: &default
   host: <%= ENV['DATABASE_HOST'] || "127.0.0.1" %>
 development:
   <<: *default
-  port: 5434
+  port: 5432
 test:
   <<: *default
   database: blogpg_test
-  port: 5434
+  port: 5432
 production:
   <<: *default
   database: blogpg_production
