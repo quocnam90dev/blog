@@ -4,5 +4,6 @@ class User < ApplicationRecord
             uniqueness: true
   validates :email,
             presence: true,
-            uniqueness: true
+            uniqueness: true,
+            format: { with: /\A\S+@\S+\z/ }
 end
