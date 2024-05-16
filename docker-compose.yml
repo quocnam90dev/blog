@@ -4,6 +4,7 @@ version: "3.8"
 services:
   database:
     image: postgres:14
+    restart: always
     volumes:
       - db_pg_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -14,5 +15,10 @@ services:
       # Sets the superuser password for PostgreSQL
       POSTGRES_PASSWORD: shhhhItsASecret
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+    - "8180:8080"
 volumes:
   db_pg_data:

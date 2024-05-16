@@ -10,6 +10,8 @@ Things you may want to cover:
 * System dependencies
 
 * Configuration
+yarn issues:
+- After this npm install succeeded, also needed asdf reshim nodejs 16.19.1 (or your target version). Then yarn finally worked!
 
 * Database creation
 
