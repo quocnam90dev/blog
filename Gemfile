@@ -71,3 +71,4 @@ group :development do
 end
 
 gem 'factory_bot_rails'
+gem 'bootstrap'
