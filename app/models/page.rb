@@ -12,6 +12,19 @@ class Page < ApplicationRecord
 
   scope :published, -> { where(published: true)}
   scope :ordered, -> { order(created_at: :desc)}
+  scope :by_term, -> (term) do
+    #regex: list of characters we want to keep in the term while removing all others.
+    term.gsub!(/[^-\w ]/, '')
+
+    terms = term.include?(' ') ? term.split : [term]
+
+    pages = Page
+    terms.each do |t|
+      pages = pages.where("content ILIKE ?", "%#{t}%")
+    end
+
+    pages
+  end
 
   private
   def make_slug
