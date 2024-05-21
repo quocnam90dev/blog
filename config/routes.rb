@@ -7,4 +7,8 @@ Rails.application.routes.draw do
       as: :page
 
   get '/search', to: 'search#index'
+  get '/search/:year/:month',
+      to: 'search#index',
+      year: /\d{4}/,
+      month: /\d{2}/
 end
