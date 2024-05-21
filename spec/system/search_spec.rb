@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Search' do
+RSpec.describe 'Search', type: :feature do
   describe "Searching" do
     before do
       create(:page, :published, content: 'Page content')

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Pages' do
+RSpec.describe 'Pages', type: :feature do
   let(:my_page) { create(:page, :published) }
 
   it "renders page" do

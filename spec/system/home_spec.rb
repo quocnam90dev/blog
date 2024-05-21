@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Home' do
+RSpec.describe 'Home', type: :feature do
   it "renders homepage" do
     create(:page, :published)
 
