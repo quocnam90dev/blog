@@ -7,3 +7,19 @@ class User < ApplicationRecord
             uniqueness: true,
             format: { with: /\A\S+@\S+\z/ }
 end
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id         :bigint           not null, primary key
+#  email      :string
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#  index_users_on_name   (name) UNIQUE
+#
