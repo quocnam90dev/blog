@@ -11,6 +11,9 @@ RSpec.describe Page, type: :model do
     it { is_expected.to validate_presence_of(:content) }
   end
 
+  it { is_expected.to have_many(:page_tags).dependent(:destroy) }
+  it { is_expected.to have_many(:tags).through(:page_tags) }
+
   describe "#slug" do
     let(:page) { create(:page, title: '--Foo Bar! _ 87 --') }
 
@@ -18,6 +21,29 @@ RSpec.describe Page, type: :model do
       expect(page.slug).to eq('foo-bar-87')
     end
   end
+
+  describe "#update_tags" do
+    let(:page) { create(:page, tags_string: 'foo, bar') }
+
+    context "when tags do not already exist" do
+      it "creates new tags" do
+        expect { page }.to change(Tag, :count).by(2)
+        expect(page.tags.map(&:name)).to match_array %w[foo bar]
+      end
+    end
+
+    context "when tags are removed" do
+      let(:tag_names) { page.tags.map(&:name) }
+
+      before { page }
+
+      it "removes tags" do
+        page.update(tags_string: 'foo')
+        expect(tag_names).to match_array %w[foo]
+      end
+    end
+  end
+
 
   describe "scopes" do
     describe ".published" do

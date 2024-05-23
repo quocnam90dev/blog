@@ -1,5 +1,9 @@
 class Page < ApplicationRecord
   belongs_to :user
+  has_many :page_tags, dependent: :destroy
+  has_many :tags, through: :page_tags
+
+  attr_accessor :tags_string
 
   validates :title,
             presence: true,
@@ -9,6 +13,7 @@ class Page < ApplicationRecord
             presence: true
 
   before_validation :make_slug
+  after_save :update_tags
 
   scope :published, -> { where(published: true)}
   scope :ordered, -> { order(created_at: :desc)}
@@ -50,14 +55,17 @@ class Page < ApplicationRecord
 
   private
   def make_slug
-    self.slug = title ? # rspec failed on is_expected.to validate_presence_of(:title)
-                  title.downcase
-                       .gsub(/[_ ]/, '-')
-                       .gsub(/[^-a-z0-9+]/,'')
-                       .gsub(/-{2,}/, '-')
-                       .gsub(/^-/, '')
-                       .chomp('-')
-                      :
-                  ''
+    self.slug = title ? NameCleanup.clean(title) : ''
+  end
+
+  def update_tags
+    self.tags = []
+    return if tags_string.blank?
+
+    tags_string.split(',').each do |name|
+      name = NameCleanup.clean(name)
+
+      tags << Tag.find_or_create_by(name:)
+    end
   end
 end
