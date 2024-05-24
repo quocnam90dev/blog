@@ -1,12 +1,3 @@
-class Tag < ApplicationRecord
-  has_many :page_tags, dependent: :destroy
-  has_many :pages, through: :page_tags
-
-  validates :name, presence: true, uniqueness: true
-
-  scope :ordered, -> { order(:name) }
-end
-
 # == Schema Information
 #
 # Table name: tags
@@ -22,3 +13,11 @@ end
 #  index_tags_on_name             (name) UNIQUE
 #  index_tags_on_page_tags_count  (page_tags_count)
 #
+class Tag < ApplicationRecord
+  has_many :page_tags, dependent: :destroy
+  has_many :pages, through: :page_tags
+
+  validates :name, presence: true, uniqueness: true
+
+  scope :ordered, -> { order(:name) }
+end

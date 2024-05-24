@@ -1,9 +1,3 @@
-class PageTag < ApplicationRecord
-  belongs_to :page
-  belongs_to :tag, counter_cache: true
-  validates :tag_id, uniqueness: { scope: :page_id }
-end
-
 # == Schema Information
 #
 # Table name: page_tags
@@ -25,3 +19,8 @@ end
 #  fk_rails_...  (page_id => pages.id)
 #  fk_rails_...  (tag_id => tags.id)
 #
+class PageTag < ApplicationRecord
+  belongs_to :page
+  belongs_to :tag, counter_cache: true
+  validates :tag_id, uniqueness: { scope: :page_id }
+end

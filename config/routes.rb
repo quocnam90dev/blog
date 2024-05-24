@@ -2,6 +2,7 @@
 #
 
 Rails.application.routes.draw do
+  get 'images/show'
   root "home#index"
 
   get 'page/:slug',
@@ -16,4 +17,6 @@ Rails.application.routes.draw do
       month: /\d{2}/
 
   get 'tags/:name', to: 'tags#show', name: /[-a-z0-9_+]*/, as: :tag
+
+  resources :images, only: :show
 end
