@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
     let(:user) { build(:user) }
 
     it "sets a pass" do
-      user.password = 'changenme'
+      user.password = 'changeme'
       user.save!
 
       expect(user.password_salt).to be_present
