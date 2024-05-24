@@ -2,6 +2,7 @@
 #
 
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self)
   get 'images/show'
   root "home#index"
 
