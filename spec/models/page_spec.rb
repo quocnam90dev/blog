@@ -1,3 +1,29 @@
+# == Schema Information
+#
+# Table name: pages
+#
+#  id         :bigint           not null, primary key
+#  content    :text             not null
+#  published  :boolean          default(FALSE), not null
+#  slug       :string           not null
+#  summary    :text             not null
+#  title      :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :bigint           not null
+#
+# Indexes
+#
+#  index_pages_on_created_at  (created_at)
+#  index_pages_on_published   (published)
+#  index_pages_on_slug        (slug) UNIQUE
+#  index_pages_on_title       (title) UNIQUE
+#  index_pages_on_user_id     (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 require 'rails_helper'
 
 RSpec.describe Page, type: :model do
@@ -44,6 +70,20 @@ RSpec.describe Page, type: :model do
     end
   end
 
+  describe "#tags_string_for_form" do
+    let(:tag) { create(:tag, name: 'foo') }
+    let(:tag2) { create(:tag, name: 'bar') }
+    let(:page) { create(:page, :published) }
+
+    before do
+      create(:page_tag, page:, tag:)
+      create(:page_tag, page:, tag: tag2)
+    end
+
+    it "returns the tags in comma delimited format" do
+      expect(page.tags_string_for_form).to eq 'bar, foo'
+    end
+  end
 
   describe "scopes" do
     describe ".published" do

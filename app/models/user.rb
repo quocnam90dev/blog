@@ -31,7 +31,7 @@ class User < ApplicationRecord
 
   before_save :downcase_email
 
-  attr_accessor :password
+  attr_accessor :password # virtual attribute, we don't need password column in db
 
   def password=(password)
     @password = password

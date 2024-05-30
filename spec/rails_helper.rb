@@ -76,3 +76,5 @@ Shoulda::Matchers.configure do |c|
     with.library :rails
   end
 end
+
+require "#{Rails.root}/spec/support/login"

@@ -19,5 +19,10 @@ Rails.application.routes.draw do
 
   get 'tags/:name', to: 'tags#show', name: /[-a-z0-9_+]*/, as: :tag
 
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  get 'logout', to: 'sessions#destroy'
+
   resources :images, only: :show
+
 end
